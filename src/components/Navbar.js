@@ -7,6 +7,11 @@ import Box from "@blend-ui/core/dist/esm/Box";
 
 import LogoIcon from "../assets/logo.svg";
 
+const styles = {
+  position: "sticky",
+  top: 0,
+};
+
 function Navbar() {
   return (
     <Flex
@@ -18,6 +23,7 @@ function Navbar() {
       flexDirecton={"row"}
       justifyContent={"space-between"}
       postion={"sticky"}
+      style={styles}
     >
       <Flex
         width={200}

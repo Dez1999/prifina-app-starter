@@ -1,20 +1,98 @@
 import React from "react";
-import { Link } from "react-router-dom";
 
-import { ThemeProvider, Text, Avatar, Flex } from "@blend-ui/core";
-import { BlendIcon } from "@blend-ui/icons";
-import Box from "@blend-ui/core/dist/esm/Box";
+import { Text, Flex } from "@blend-ui/core";
 
-import LinearProgress from "@material-ui/core/LinearProgress";
+import { extendTheme, ThemeProvider, Progress, Stack } from "@chakra-ui/react";
 
 const styles = {
   transform: `rotate(${270}deg)`,
 };
 
+const config = {
+  initialColorMode: "light",
+  useSystemColorMode: false,
+};
+
+const theme = extendTheme({ config });
+
 function ProgressContainer({ text }) {
   return (
-    <Flex flexDirection="column">
-      <div style={styles}>
+    <ThemeProvider theme={theme}>
+      <Flex flexDirection="column">
+        <div style={styles}>
+          <Stack spacing="10px">
+            <Progress
+              colorScheme="green"
+              size="sm"
+              value={0}
+              width={100}
+              height="5px"
+              borderRadius={100}
+            />
+            <Progress
+              colorScheme="green"
+              size="sm"
+              value={0}
+              width={132}
+              height="5px"
+              borderRadius={100}
+            />
+            <Progress
+              colorScheme="green"
+              size="sm"
+              value={0}
+              width={147}
+              height="5px"
+              borderRadius={100}
+            />
+            <Progress
+              colorScheme="green"
+              size="sm"
+              value={0}
+              width={109}
+              height="5px"
+              borderRadius={100}
+            />
+            <Progress
+              colorScheme="blue"
+              size="sm"
+              value={100}
+              width={132}
+              height="5px"
+              borderRadius={100}
+            />
+            <Progress
+              colorScheme="red"
+              size="sm"
+              value={100}
+              width={147}
+              height="5px"
+              borderRadius={100}
+            />
+            <Progress
+              colorScheme="green"
+              size="sm"
+              value={100}
+              width={109}
+              height="5px"
+              borderRadius={100}
+            />
+          </Stack>
+        </div>
+        <div style={{ marginTop: 42, marginLeft: 53 }}>
+          <Text color="#95A4B7" fontSize={15}>
+            {text}
+          </Text>
+        </div>
+      </Flex>
+    </ThemeProvider>
+  );
+}
+
+export default ProgressContainer;
+
+{
+  /* <div style={styles}>
         <div style={{ padding: 5, width: 100 }}>
           <LinearProgress variant="determinate" value={0} />
         </div>
@@ -36,14 +114,5 @@ function ProgressContainer({ text }) {
         <div style={{ padding: 5, width: 109 }}>
           <LinearProgress variant="determinate" value={100} color="primary" />
         </div>
-      </div>
-      <div style={{ marginTop: 32, marginLeft: 53 }}>
-        <Text color="#95A4B" fontSize={15}>
-          {text}
-        </Text>
-      </div>
-    </Flex>
-  );
+      </div> */
 }
-
-export default ProgressContainer;
