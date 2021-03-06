@@ -1,9 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-import { ThemeProvider, Text, Avatar, Flex } from "@blend-ui/core";
-import { BlendIcon } from "@blend-ui/icons";
-import Box from "@blend-ui/core/dist/esm/Box";
+import { Text, Avatar, Flex } from "@blend-ui/core";
 
 import LogoIcon from "../assets/logo.svg";
 
@@ -16,6 +14,7 @@ function Navbar() {
   return (
     <Flex
       height="69px"
+      width={"100%"}
       bg={"#F4F4F8"}
       paddingLeft={37}
       paddingTop={21}
@@ -35,11 +34,11 @@ function Navbar() {
       >
         <img src={LogoIcon} alt="React Logo" />
         <Flex paddingLeft={20}>
-          {/* <Link to="/"> */}
-          <Text color={"#5F6AC4"} fontSize={18}>
-            Health widget
-          </Text>
-          {/* </Link> */}
+          <Link to="/">
+            <Text color={"#5F6AC4"} fontSize={18}>
+              Health widget
+            </Text>
+          </Link>
         </Flex>
       </Flex>
       <div>
@@ -50,7 +49,7 @@ function Navbar() {
           <Flex paddingLeft={4}>
             <Text fontSize={16}> Jane Doe</Text>
           </Flex>
-          <Flex paddingLeft={10} width={44} height={44}>
+          <Flex paddingLeft={10} size={44}>
             <Avatar />
           </Flex>
         </Flex>
@@ -60,13 +59,3 @@ function Navbar() {
 }
 
 export default Navbar;
-
-// style={{
-//   backgroundColor: "#F4F4F8",
-//   height: "69px",
-//   paddingLeft: 37,
-//   paddingTop: 21,
-//   width: "100%",
-//   flexDirection: "row",
-//   justifyContent: "space-between",
-// }}

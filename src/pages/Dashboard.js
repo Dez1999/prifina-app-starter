@@ -15,6 +15,10 @@ import HeartIcon from "../assets/heart.svg";
 import TemperatureIcon from "../assets/temperature.svg";
 import GreenArrowIcon from "../assets/greenArrow.svg";
 import RedArrowIcon from "../assets/redArrow.svg";
+import FireIcon from "../assets/fire.svg";
+import WalkIcon from "../assets/walk.svg";
+import WeightIcon from "../assets/weight.svg";
+import RunIcon from "../assets/run.svg";
 
 const styles = {
   boxShadow: " 0px 5px 20px #F0F4F8",
@@ -94,8 +98,8 @@ function Dashboard() {
                     title="7h 30m"
                     subtitle="sleep"
                     precentage="11%"
-                    iconColor="#B794F4"
-                    color="#E9D8FD"
+                    iconColor="#E9D8FD"
+                    color="#FAF5FF"
                   />
                   <Box paddingTop={15}>
                     <Card
@@ -104,8 +108,8 @@ function Dashboard() {
                       title="89bpm"
                       subtitle="rate"
                       precentage="5%"
-                      iconColor="#C53030"
-                      color="#FC8181"
+                      iconColor="#FED7D7"
+                      color="#FFF5F5"
                     />
                   </Box>
                 </Box>
@@ -116,8 +120,8 @@ function Dashboard() {
                     title="36.6"
                     subtitle="body temp"
                     precentage="10%"
-                    iconColor="#319795"
-                    color="#B2F5EA"
+                    iconColor="#B2F5EA"
+                    color="#E6FFFA"
                   />
                 </Box>
               </Flex>
@@ -136,26 +140,30 @@ function Dashboard() {
                   subtitle="out of 4000"
                   color="#F6E05E"
                   value="78"
+                  icon={FireIcon}
                 />
                 <ProgressCard
                   title="15 miles"
                   subtitle="out of 25"
                   color="#38B2AC"
                   value="65"
+                  icon={RunIcon}
                 />
               </Box>
               <Box height={299}>
                 <ProgressCard
                   title="13lb"
                   subtitle="out of 16"
-                  color="#29C1E2"
+                  color="#B794F4"
                   value="85"
+                  icon={WeightIcon}
                 />
                 <ProgressCard
                   title="52 hours"
                   subtitle="out of 240"
-                  color="#6B46C1"
+                  color="#4299E1"
                   value="70"
+                  icon={SleepIcon}
                 />
               </Box>
               <Box>
@@ -164,6 +172,7 @@ function Dashboard() {
                   subtitle="out of 30 000"
                   color="#ED8936"
                   value="62"
+                  icon={WalkIcon}
                 />
               </Box>
             </Flex>

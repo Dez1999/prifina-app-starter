@@ -70,7 +70,7 @@ function ProgressContainer({ text }) {
               borderRadius={100}
             />
             <Progress
-              colorScheme="green"
+              colorScheme="cyan"
               size="sm"
               value={100}
               width={109}

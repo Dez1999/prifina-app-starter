@@ -22,7 +22,7 @@ const config = {
 
 const theme = extendTheme({ config });
 
-function ProgressCard({ title, subtitle, color, value }) {
+function ProgressCard({ title, subtitle, color, value, icon }) {
   return (
     <ThemeProvider theme={theme}>
       <Flex
@@ -38,7 +38,12 @@ function ProgressCard({ title, subtitle, color, value }) {
           color={color}
           thickness="11px"
           size="95px"
-        />
+          trackColor="transparent"
+        >
+          <CircularProgressLabel>
+            <img src={icon} />
+          </CircularProgressLabel>
+        </CircularProgress>
         <Box marginLeft={35}>
           <Box marginBottom={5} marginTop={27}>
             <Text color="#5F6AC4" fontSize={28}>
