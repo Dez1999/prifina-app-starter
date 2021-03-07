@@ -42,3 +42,33 @@ export const data = [
     amt: 2100,
   },
 ];
+
+const fitbit = [
+  {
+    name: "Day 5",
+    uv: 4000,
+    Calories: 2400,
+    amt: 2400,
+  },
+  {
+    name: "Day 10",
+    uv: 3000,
+    Calories: 1398,
+    amt: 2210,
+  },
+];
+
+const oura = [
+  {
+    name: "Day 5",
+    uv: 4000,
+    Calories: 2400,
+    amt: 2400,
+  },
+  {
+    name: "Day 10",
+    uv: 3000,
+    Calories: 1398,
+    amt: 2210,
+  },
+];

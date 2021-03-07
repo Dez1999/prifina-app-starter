@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 
 import { Text, Flex } from "@blend-ui/core";
 import Box from "@blend-ui/core/dist/esm/Box";
@@ -12,16 +12,12 @@ import {
   ResponsiveContainer,
 } from "recharts";
 
-import { extendTheme, ThemeProvider, Select } from "@chakra-ui/react";
+import { extendTheme, ThemeProvider } from "@chakra-ui/react";
+import Select from "react-select";
 
-import { data } from "../data";
+// -----------------------FUNCTIONS----------------------
 
-const styles = {
-  boxShadow: " 0px 5px 20px #F0F4F8",
-};
-const color = {
-  fill: "linear-gradient(to right, #4880EC, #019CAD)",
-};
+import { Device } from "../data/dataFunctions";
 
 const config = {
   initialColorMode: "light",
@@ -30,7 +26,86 @@ const config = {
 
 const theme = extendTheme({ config });
 
+function customTheme(theme) {
+  return {
+    ...theme,
+    colors: {
+      ...theme.colors,
+      primary25: "#43425d",
+      primary: "#3c4a64",
+    },
+  };
+}
+
+// -------------DATA----------------
+
+const styles = {
+  boxShadow: " 0px 5px 20px #F0F4F8",
+};
+
+const deviceOptions = [
+  { label: "Fitbit", value: "fitbit" },
+  { label: "Oura", value: "oura" },
+];
+
+const timeOptions = [
+  { label: "Last Month", value: "fitbit" },
+  { label: "Last Week", value: "oura" },
+  { label: "This Month", value: "oura" },
+  { label: "This Week", value: "oura" },
+];
+
+const dataOptions = [
+  { label: "Total calories", value: "Calories" },
+  { label: "acitvity", value: "activity" },
+];
+
+function getDeviceData(device) {
+  return Device(device);
+}
+
+function getDeviceDataTwo(deviceTwo) {
+  return Device(deviceTwo);
+}
+
+const defaultDevice = deviceOptions[0];
+
+const defaultData = {};
+
+// --------------------------APP FUNCTION--------------------------------
+
 function Graphs() {
+  const [device, setDevice] = useState(defaultDevice.value);
+  const [deviceTwo, setDeviceTwo] = useState(defaultDevice.value);
+
+  const [graphDataOne, setGraphDataOne] = useState(defaultData);
+  const [graphDataTwo, setGraphDataTwo] = useState(defaultData);
+
+  let getName = (x) => {
+    return x.Calories;
+  };
+
+  const handleDeviceChange = (value) => {
+    const device = value.value;
+    setDevice(device);
+  };
+  const handleDeviceChangeTwo = (value) => {
+    const deviceTwo = value.value;
+    setDeviceTwo(deviceTwo);
+  };
+
+  useEffect(() => {
+    getDeviceData(device).then((graphDataOne) => {
+      setGraphDataOne(graphDataOne);
+    });
+  }, [device]);
+
+  useEffect(() => {
+    getDeviceDataTwo(deviceTwo).then((graphDataTwo) => {
+      setGraphDataTwo(graphDataTwo);
+    });
+  }, [deviceTwo]);
+
   return (
     <ThemeProvider theme={theme}>
       <Flex
@@ -59,16 +134,15 @@ function Graphs() {
                   paddingTop={30}
                 >
                   <Flex>
-                    <Select
-                      placeholder="Select"
-                      variant="unstyled"
-                      borderWidth={0}
-                      textColor="#5F6AC4"
-                    >
-                      <option value="option1">Option 1</option>
-                      <option value="option2">Option 2</option>
-                      <option value="option3">Option 3</option>
-                    </Select>
+                    <div style={{ minWidth: 100 }}>
+                      <Select
+                        options={dataOptions}
+                        defaultValue="Data"
+                        theme={customTheme}
+                        // onChange={handleDeviceChange}
+                        width="100px"
+                      />
+                    </div>
                   </Flex>
                   <Flex>
                     <Text
@@ -89,35 +163,33 @@ function Graphs() {
                   paddingRight={30}
                 >
                   <Flex>
-                    <Select
-                      placeholder="Select data"
-                      variant="unstyled"
-                      borderWidth={0}
-                      textColor="#5F6AC4"
-                      size="sm"
-                    >
-                      <option value="option1">Option 1</option>
-                      <option value="option2">Option 2</option>
-                      <option value="option3">Option 3</option>
-                    </Select>
+                    <Flex>
+                      <div style={{ minWidth: 100 }}>
+                        <Select
+                          options={timeOptions}
+                          defaultValue="Time"
+                          theme={customTheme}
+                          // onChange={handleDeviceChange}
+                          width="100px"
+                        />
+                      </div>
+                    </Flex>
                   </Flex>
                   <Flex>
-                    <Select
-                      placeholder="Select data"
-                      variant="outline"
-                      textColor="#5F6AC4"
-                      size="sm"
-                      borderRadius="5px"
-                    >
-                      <option value="option1">Fitbit</option>
-                      <option value="option2">Option 2</option>
-                      <option value="option3">Option 3</option>
-                    </Select>
+                    <div style={{ minWidth: 100 }}>
+                      <Select
+                        options={deviceOptions}
+                        defaultValue="Device"
+                        theme={customTheme}
+                        onChange={handleDeviceChange}
+                        width="100px"
+                      />
+                    </div>
                   </Flex>
                 </Flex>
                 <ResponsiveContainer>
                   <AreaChart
-                    data={data}
+                    data={graphDataOne}
                     syncId="anyId"
                     margin={{
                       top: 0,
@@ -136,9 +208,11 @@ function Graphs() {
                     <Tooltip />
                     <Area
                       type="monotone"
-                      dataKey="Calories"
+                      // dataKey="Calories"
+                      dataKey={getName}
                       stroke="orange"
-                      fill="#FFD46A"
+                      // fill="#FFD46A"
+                      fill="#5F6AC4"
                     />
                   </AreaChart>
                 </ResponsiveContainer>
@@ -156,16 +230,15 @@ function Graphs() {
                   paddingTop={30}
                 >
                   <Flex>
-                    <Select
-                      placeholder="Select"
-                      variant="unstyled"
-                      borderWidth={0}
-                      textColor="#5F6AC4"
-                    >
-                      <option value="option1">Option 1</option>
-                      <option value="option2">Option 2</option>
-                      <option value="option3">Option 3</option>
-                    </Select>
+                    <div style={{ minWidth: 100 }}>
+                      <Select
+                        options={dataOptions}
+                        defaultValue="Data"
+                        theme={customTheme}
+                        // onChange={handleDeviceChange}
+                        width="100px"
+                      />
+                    </div>
                   </Flex>
                   <Flex>
                     <Text
@@ -175,7 +248,7 @@ function Graphs() {
                       fontWeight={900}
                       fontStyle="normal"
                     >
-                      27613 calories
+                      25354 calories
                     </Text>
                   </Flex>
                 </Flex>
@@ -186,35 +259,33 @@ function Graphs() {
                   paddingRight={30}
                 >
                   <Flex>
-                    <Select
-                      placeholder="Select data"
-                      variant="unstyled"
-                      borderWidth={0}
-                      textColor="#5F6AC4"
-                      size="sm"
-                    >
-                      <option value="option1">{data.name}</option>
-                      <option value="option2">Option 2</option>
-                      <option value="option3">Option 3</option>
-                    </Select>
+                    <Flex>
+                      <div style={{ minWidth: 100 }}>
+                        <Select
+                          options={timeOptions}
+                          defaultValue="Time"
+                          theme={customTheme}
+                          // onChange={handleDeviceChange}
+                          width="100px"
+                        />
+                      </div>
+                    </Flex>
                   </Flex>
                   <Flex>
-                    <Select
-                      placeholder="Select data"
-                      variant="outline"
-                      textColor="#5F6AC4"
-                      size="sm"
-                      borderRadius="5px"
-                    >
-                      <option value="option1">Oura</option>
-                      <option value="option2">Option 2</option>
-                      <option value="option3">Option 3</option>
-                    </Select>
+                    <div style={{ minWidth: 100 }}>
+                      <Select
+                        options={deviceOptions}
+                        defaultValue="Device"
+                        theme={customTheme}
+                        onChange={handleDeviceChangeTwo}
+                        width="100px"
+                      />
+                    </div>
                   </Flex>
                 </Flex>
                 <ResponsiveContainer>
                   <AreaChart
-                    data={data}
+                    data={graphDataTwo}
                     syncId="anyId"
                     margin={{
                       top: 0,
@@ -233,7 +304,8 @@ function Graphs() {
                     <Tooltip />
                     <Area
                       type="monotone"
-                      dataKey="Calories"
+                      // dataKey="Calories"
+                      dataKey={getName}
                       stroke="orange"
                       fill="#FFD46A"
                     />
