@@ -49,23 +49,26 @@ function Dashboard() {
                 </Text>
               </Flex>
               <Flex paddingRight={35}>
-                <Flex flexDirection="row" paddingRight={35}>
+                <Flex paddingRight={35}>
                   <Box>
-                    <Select
-                      placeholder="This Week"
-                      variant="unstyled"
-                      borderWidth={0}
-                      borderRadius="10px"
-                      textColor="#5F6AC4"
-                      style={styles}
-                      minWidth="166px"
-                      minHeight="43px"
-                      justifyContent="center"
-                    >
-                      <option value="option1">Option 1</option>
-                      <option value="option2">Option 2</option>
-                      <option value="option3">Option 3</option>
-                    </Select>
+                    <Flex minHeight="43px">
+                      {/* <Select
+                        placeholder="This Week"
+                        variant="unstyled"
+                        borderWidth={0}
+                        borderRadius="10px"
+                        textColor="#5F6AC4"
+                        style={styles}
+                        // minWidth="166px"
+                        width="166px"
+                        minHeight="43px"
+                        justifyContent="center"
+                      >
+                        <option value="option1">Option 1</option>
+                        <option value="option2">Option 2</option>
+                        <option value="option3">Option 3</option>
+                      </Select> */}
+                    </Flex>
                     {/* <Box width="57px" width="43px">
                       <Text>...</Text>
                     </Box> */}

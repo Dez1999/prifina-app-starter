@@ -21,7 +21,6 @@ function Navbar() {
       paddingRight={35}
       flexDirecton={"row"}
       justifyContent={"space-between"}
-      postion={"sticky"}
       style={styles}
     >
       <Flex
@@ -36,7 +35,7 @@ function Navbar() {
         <Flex paddingLeft={20}>
           <Link to="/">
             <Text color={"#5F6AC4"} fontSize={18}>
-              Health widget
+              Health app
             </Text>
           </Link>
         </Flex>

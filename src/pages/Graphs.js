@@ -18,6 +18,7 @@ import Select from "react-select";
 // -----------------------FUNCTIONS----------------------
 
 import { Device } from "../data/dataFunctions";
+import { borderWidth } from "styled-system";
 
 const config = {
   initialColorMode: "light",
@@ -31,8 +32,9 @@ function customTheme(theme) {
     ...theme,
     colors: {
       ...theme.colors,
-      primary25: "#43425d",
-      primary: "#3c4a64",
+      primary25: "#5F6AC4",
+      primary: "#5F6AC4",
+      borderColor: "white",
     },
   };
 }
@@ -49,15 +51,22 @@ const deviceOptions = [
 ];
 
 const timeOptions = [
-  { label: "Last Month", value: "fitbit" },
-  { label: "Last Week", value: "oura" },
-  { label: "This Month", value: "oura" },
-  { label: "This Week", value: "oura" },
+  { label: "This Week", value: "thisWeek" },
+  { label: "Last Week", value: "lastWeek" },
+  { label: "This Month", value: "thisMonth" },
 ];
 
 const dataOptions = [
-  { label: "Total calories", value: "Calories" },
-  { label: "acitvity", value: "activity" },
+  { label: "Total Calories", value: "Calories" },
+  { label: "Total Steps", value: "totalSteps" },
+  { label: "Total Distance", value: "totalDistance" },
+  { label: "Inactive Minutes", value: "inactiveMinutes" },
+  { label: "Low Active", value: "lowActiveMinutes" },
+  { label: "Medium Active", value: "mediumActiveMinutes" },
+  { label: "High Active", value: "highActiveMinutes" },
+  { label: "Light Sleep", value: "lightSleepTime" },
+  { label: "Deep Sleep", value: "deepSleepTime" },
+  { label: "Time in Bed", value: "timeSpentInBed" },
 ];
 
 function getDeviceData(device) {
@@ -81,9 +90,40 @@ function Graphs() {
   const [graphDataOne, setGraphDataOne] = useState(defaultData);
   const [graphDataTwo, setGraphDataTwo] = useState(defaultData);
 
-  let getName = (x) => {
-    return x.Calories;
-  };
+  const [dataType, updateDataType] = useState([
+    "Calories",
+    "totalSteps",
+    "totalDistance",
+    "inactiveMinutes",
+    "lowActiveMinutes",
+    "mediumActiveMinutes",
+    "highActiveMinutes",
+    "lightSleepTime",
+    "deepSleepTime",
+    "timeSpentInBed",
+  ]);
+
+  const [time, updateTime] = useState(["thisWeek", "lastWeek", "thisMonth"]);
+  const [timeTwo, updateTimeTwo] = useState([
+    "thisWeek",
+    "lastWeek",
+    "thisMonth",
+  ]);
+
+  const [sum, setSum] = useState("");
+
+  const [dataTypeTwo, updateDataTypeTwo] = useState([
+    "Calories",
+    "totalSteps",
+    "totalDistance",
+    "inactiveMinutes",
+    "lowActiveMinutes",
+    "mediumActiveMinutes",
+    "highActiveMinutes",
+    "lightSleepTime",
+    "deepSleepTime",
+    "timeSpentInBed",
+  ]);
 
   const handleDeviceChange = (value) => {
     const device = value.value;
@@ -92,6 +132,53 @@ function Graphs() {
   const handleDeviceChangeTwo = (value) => {
     const deviceTwo = value.value;
     setDeviceTwo(deviceTwo);
+  };
+
+  const handleDataChange = (value) => {
+    const dataType = value.value;
+    updateDataType(dataType);
+    console.log(dataType);
+    console.log(graphDataOne);
+  };
+
+  const handleDataChangeTwo = (value) => {
+    const dataTypeTwo = value.value;
+    updateDataTypeTwo(dataTypeTwo);
+  };
+
+  const handleTimeChange = (value) => {
+    const time = value.value;
+    const timeArray = graphDataOne;
+    if (time === "thisWeek") {
+      const newTimeArray = timeArray.slice(23, 30);
+      setGraphDataOne(newTimeArray);
+    } else if (time === "lastWeek") {
+      const newTimeArray = timeArray.slice(16, 23);
+      setGraphDataOne(newTimeArray);
+    } else {
+      setGraphDataOne(graphDataOne);
+    }
+  };
+
+  const handleTimeChangeTwo = (value) => {
+    const timeTwo = value.value;
+    const timeArray = graphDataTwo;
+    if (timeTwo === "thisWeek") {
+      const newTimeArray = timeArray.slice(23, 30);
+      setGraphDataTwo(newTimeArray);
+    } else if (time === "lastWeek") {
+      const newTimeArray = timeArray.slice(16, 23);
+      setGraphDataTwo(newTimeArray);
+    } else {
+      setGraphDataTwo(graphDataTwo);
+    }
+  };
+
+  const handleGraphColor = (value) => {
+    const device = value.value;
+
+    if (device === "fitbit") return "#FFD46A";
+    else if (device === "oura") return "#5F6AC4";
   };
 
   useEffect(() => {
@@ -134,12 +221,14 @@ function Graphs() {
                   paddingTop={30}
                 >
                   <Flex>
-                    <div style={{ minWidth: 100 }}>
+                    <div style={{ minWidth: 180 }}>
                       <Select
+                        styles={customTheme}
                         options={dataOptions}
                         defaultValue="Data"
                         theme={customTheme}
                         // onChange={handleDeviceChange}
+                        onChange={handleDataChange}
                         width="100px"
                       />
                     </div>
@@ -152,7 +241,9 @@ function Graphs() {
                       fontWeight={900}
                       fontStyle="normal"
                     >
-                      25354 calories
+                      {/* 25354 calories */}
+                      {/* {graphDataOne.reduce(reducer)} */}
+                      {sum}
                     </Text>
                   </Flex>
                 </Flex>
@@ -164,12 +255,12 @@ function Graphs() {
                 >
                   <Flex>
                     <Flex>
-                      <div style={{ minWidth: 100 }}>
+                      <div style={{ minWidth: 150 }}>
                         <Select
                           options={timeOptions}
                           defaultValue="Time"
                           theme={customTheme}
-                          // onChange={handleDeviceChange}
+                          onChange={handleTimeChange}
                           width="100px"
                         />
                       </div>
@@ -206,13 +297,27 @@ function Graphs() {
                     <XAxis dataKey="name" tick={false} axisLine={false} />
                     <YAxis tick={false} axisLine={false} />
                     <Tooltip />
+                    <defs>
+                      <linearGradient
+                        id="colorUv2"
+                        x1="0%"
+                        y1="0%"
+                        x2="0%"
+                        y2="100%"
+                        spreadMethod="reflect"
+                      >
+                        <stop offset="0" stopColor="#5F6AC4" />
+                        <stop offset="1" stopColor="white" />
+                      </linearGradient>
+                    </defs>
                     <Area
                       type="monotone"
                       // dataKey="Calories"
-                      dataKey={getName}
-                      stroke="orange"
-                      // fill="#FFD46A"
-                      fill="#5F6AC4"
+                      dataKey={dataType}
+                      stroke="blue"
+                      // fill="#5F6AC4"
+                      fill="url(#colorUv2)"
+                      // fill={handleGraphColor}
                     />
                   </AreaChart>
                 </ResponsiveContainer>
@@ -230,12 +335,13 @@ function Graphs() {
                   paddingTop={30}
                 >
                   <Flex>
-                    <div style={{ minWidth: 100 }}>
+                    <div style={{ minWidth: 180 }}>
                       <Select
                         options={dataOptions}
                         defaultValue="Data"
                         theme={customTheme}
                         // onChange={handleDeviceChange}
+                        onChange={handleDataChangeTwo}
                         width="100px"
                       />
                     </div>
@@ -248,7 +354,7 @@ function Graphs() {
                       fontWeight={900}
                       fontStyle="normal"
                     >
-                      25354 calories
+                      {/* 25354 calories */}
                     </Text>
                   </Flex>
                 </Flex>
@@ -260,12 +366,12 @@ function Graphs() {
                 >
                   <Flex>
                     <Flex>
-                      <div style={{ minWidth: 100 }}>
+                      <div style={{ minWidth: 150 }}>
                         <Select
                           options={timeOptions}
                           defaultValue="Time"
                           theme={customTheme}
-                          // onChange={handleDeviceChange}
+                          onChange={handleTimeChangeTwo}
                           width="100px"
                         />
                       </div>
@@ -302,12 +408,27 @@ function Graphs() {
                     <XAxis dataKey="name" tick={false} axisLine={false} />
                     <YAxis tick={false} axisLine={false} />
                     <Tooltip />
+                    <defs>
+                      <linearGradient
+                        id="colorUv"
+                        x1="0"
+                        y1="0"
+                        x2="0"
+                        y2="100%"
+                        spreadMethod="reflect"
+                      >
+                        <stop offset="0" stopColor="#FFD46A" />
+                        <stop offset="1" stopColor="white" />
+                      </linearGradient>
+                    </defs>
                     <Area
                       type="monotone"
                       // dataKey="Calories"
-                      dataKey={getName}
+                      dataKey={dataTypeTwo}
+                      // dataKey={getName}
                       stroke="orange"
-                      fill="#FFD46A"
+                      fill="url(#colorUv)"
+                      // fill="#FFD46A"
                     />
                   </AreaChart>
                 </ResponsiveContainer>
