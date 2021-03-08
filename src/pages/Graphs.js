@@ -67,6 +67,7 @@ const dataOptions = [
   { label: "Light Sleep", value: "lightSleepTime" },
   { label: "Deep Sleep", value: "deepSleepTime" },
   { label: "Time in Bed", value: "timeSpentInBed" },
+  { label: "Total Sleep", value: "totalSleepTime" },
 ];
 
 function getDeviceData(device) {
@@ -101,6 +102,7 @@ function Graphs() {
     "lightSleepTime",
     "deepSleepTime",
     "timeSpentInBed",
+    "totalSleepTime",
   ]);
 
   const [time, updateTime] = useState(["thisWeek", "lastWeek", "thisMonth"]);
@@ -123,6 +125,7 @@ function Graphs() {
     "lightSleepTime",
     "deepSleepTime",
     "timeSpentInBed",
+    "totalSleepTime",
   ]);
 
   const handleDeviceChange = (value) => {
@@ -150,10 +153,10 @@ function Graphs() {
     const time = value.value;
     const timeArray = graphDataOne;
     if (time === "thisWeek") {
-      const newTimeArray = timeArray.slice(23, 30);
+      const newTimeArray = timeArray.slice(21, 28);
       setGraphDataOne(newTimeArray);
     } else if (time === "lastWeek") {
-      const newTimeArray = timeArray.slice(16, 23);
+      const newTimeArray = timeArray.slice(14, 21);
       setGraphDataOne(newTimeArray);
     } else {
       setGraphDataOne(graphDataOne);
@@ -164,10 +167,10 @@ function Graphs() {
     const timeTwo = value.value;
     const timeArray = graphDataTwo;
     if (timeTwo === "thisWeek") {
-      const newTimeArray = timeArray.slice(23, 30);
+      const newTimeArray = timeArray.slice(21, 28);
       setGraphDataTwo(newTimeArray);
     } else if (time === "lastWeek") {
-      const newTimeArray = timeArray.slice(16, 23);
+      const newTimeArray = timeArray.slice(14, 21);
       setGraphDataTwo(newTimeArray);
     } else {
       setGraphDataTwo(graphDataTwo);
