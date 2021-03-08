@@ -226,7 +226,7 @@ function Graphs() {
                         styles={customTheme}
                         options={dataOptions}
                         defaultValue="Data"
-                        theme={customTheme}
+                        placeholder="Data"
                         // onChange={handleDeviceChange}
                         onChange={handleDataChange}
                         width="100px"
@@ -259,7 +259,7 @@ function Graphs() {
                         <Select
                           options={timeOptions}
                           defaultValue="Time"
-                          theme={customTheme}
+                          placeholder="Time"
                           onChange={handleTimeChange}
                           width="100px"
                         />
@@ -271,7 +271,7 @@ function Graphs() {
                       <Select
                         options={deviceOptions}
                         defaultValue="Device"
-                        theme={customTheme}
+                        placeholder="Device"
                         onChange={handleDeviceChange}
                         width="100px"
                       />
@@ -339,10 +339,10 @@ function Graphs() {
                       <Select
                         options={dataOptions}
                         defaultValue="Data"
-                        theme={customTheme}
                         // onChange={handleDeviceChange}
                         onChange={handleDataChangeTwo}
                         width="100px"
+                        placeholder="Data"
                       />
                     </div>
                   </Flex>
@@ -370,9 +370,9 @@ function Graphs() {
                         <Select
                           options={timeOptions}
                           defaultValue="Time"
-                          theme={customTheme}
                           onChange={handleTimeChangeTwo}
                           width="100px"
+                          placeholder="Time"
                         />
                       </div>
                     </Flex>
@@ -382,9 +382,9 @@ function Graphs() {
                       <Select
                         options={deviceOptions}
                         defaultValue="Device"
-                        theme={customTheme}
                         onChange={handleDeviceChangeTwo}
                         width="100px"
+                        placeholder="Device"
                       />
                     </div>
                   </Flex>
